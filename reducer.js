@@ -37,33 +37,13 @@ const todoApp = (state = initialState, action) => {
 
             break;
 
-        case 'MARK_AS_DONE':
+        case 'TOGGLE_DONE':
             itemIndex = newCutHistory.findIndex(item => (item.id === action.payload.id));
 
             history = [
                 ...newCutHistory.slice(0, itemIndex),
                 {
-                    finished: true,
-                    id: newCutHistory[itemIndex].id,
-                    title: newCutHistory[itemIndex].title
-                },
-                ...newCutHistory.slice(itemIndex + 1)
-            ];
-
-            return {
-                history,
-                cursor: history.length - 1
-            };
-
-            break;
-
-        case 'MARK_AS_UNDONE':
-            itemIndex = newCutHistory.findIndex(item => (item.id === action.payload.id));
-
-            history = [
-                ...newCutHistory.slice(0, itemIndex),
-                {
-                    finished: false,
+                    finished: !newCutHistory[itemIndex].finished,
                     id: newCutHistory[itemIndex].id,
                     title: newCutHistory[itemIndex].title
                 },
