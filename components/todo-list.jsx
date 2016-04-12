@@ -31,6 +31,12 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const TodoList = ({todos, onTodoClick, onTodoRemove}) => {
+    if (!todos.length) {
+        return (
+            <div style={{margin: '12px 0'}}>The ToDo list is empty. Try to add something. Remember that you can mark item as DONE by clicking it.</div>
+        );
+    }
+
     return (
         <ul>
         {todos.map(({title, id, finished}, index) => {
