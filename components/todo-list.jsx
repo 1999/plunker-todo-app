@@ -19,6 +19,9 @@ const mapDispatchToProps = (dispatch) => {
         },
 
         onTodoRemove: id => evt => {
+            evt.stopPropagation();
+            evt.preventDefault();
+
             dispatch({
                 type: 'REMOVE',
                 payload: {id}
@@ -36,7 +39,7 @@ const TodoList = ({todos, onTodoClick, onTodoRemove}) => {
                   textDecoration: finished ? 'line-through' : 'none'
                 } } key={index} onClick={onTodoClick(id)}>
                     {title}
-                    <a href="" onClick={onTodoRemove(id)}></a>
+                    <a style={{marginLeft: '8px'}} href="" onClick={onTodoRemove(id)}>(remove)</a>
                 </li>
             )
         })}

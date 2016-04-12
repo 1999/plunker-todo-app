@@ -45,7 +45,7 @@ const todoApp = (state = initialState, action) => {
             break;
 
         case 'TOGGLE_DONE':
-            const newHistoryStep = newCutHistory[newCutHistory.length - 1]
+            const newHistoryStep = newCutHistory[newCutHistory.length - 1];
             itemIndex = newHistoryStep.findIndex(item => (item.id === action.payload.id));
 
             history = [
@@ -71,14 +71,16 @@ const todoApp = (state = initialState, action) => {
             break;
 
         case 'REMOVE':
-            const lastStepToRemove = newCutHistory.length - 1;
+            const newHistoryStepForRemove = newCutHistory[newCutHistory.length - 1];
+            itemIndex = newHistoryStepForRemove.findIndex(item => (item.id === action.payload.id));
 
             history = [
                 // copy all history steps
                 ...newCutHistory,
                 // and create a new step
                 [
-                    ...newCutHistory[lastStepToRemove].slice(0, lastStepToRemove - 1)
+                    ...newHistoryStepForRemove.slice(0, itemIndex),
+                    ...newHistoryStepForRemove.slice(itemIndex + 1)
                 ]
             ];
 
