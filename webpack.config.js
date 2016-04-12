@@ -6,7 +6,7 @@ const IS_PRODUCTION_BUILD = (NODE_ENV === 'production');
 
 module.exports = {
     context: __dirname,
-    entry: './static/script.js',
+    entry: './static/script.jsx',
     output: {
         path: `${__dirname}/static`,
         publicPath: './static/',
