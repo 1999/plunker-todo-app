@@ -1,7 +1,8 @@
 {
   "name": "plunker-todo-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple ToDo app with React/Redux",
+  "repository": "git@github.com:1999/plunker-todo-app.git",
   "main": "index.js",
   "scripts": {
     "postinstall": "NODE_ENV=production ./node_modules/.bin/webpack",
