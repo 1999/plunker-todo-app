@@ -1,5 +1,7 @@
 'use strict';
 
+// every `history` element is an array of tasks
+// `cursor` points to the currently active history step
 const initialState = {
     cursor: -1,
     history: []
@@ -22,12 +24,17 @@ const todoApp = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD':
             history = [
+                // copy all history steps
                 ...newCutHistory,
-                {
-                    finished: false,
-                    id: ++id,
-                    title: action.payload.title
-                }
+                // and create a new step
+                [
+                    ...newCutHistory[newCutHistory.length - 1] || [], // freshest history step
+                    {
+                        finished: false,
+                        id: ++id,
+                        title: action.payload.title
+                    }
+                ]
             ];
 
             return {
@@ -58,8 +65,15 @@ const todoApp = (state = initialState, action) => {
             break;
 
         case 'REMOVE':
+            const lastStepToRemove = newCutHistory.length - 1;
+
             history = [
-                ...newCutHistory.slice(0, newCutHistory.length - 1)
+                // copy all history steps
+                ...newCutHistory,
+                // and create a new step
+                [
+                    ...newCutHistory[lastStepToRemove].slice(0, lastStepToRemove - 1)
+                ]
             ];
 
             return {

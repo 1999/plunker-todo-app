@@ -11,20 +11,32 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onTodoClick: (id) => {
+        onTodoClick: id => evt => {
             dispatch({
-                id,
-                action: 'TOGGLE_DONE'
+                type: 'TOGGLE_DONE',
+                payload: {id}
+            });
+        },
+
+        onTodoRemove: id => evt => {
+            dispatch({
+                type: 'REMOVE',
+                payload: {id}
             });
         }
     };
 };
 
-const TodoList = (props) => {
+const TodoList = ({todos, onTodoClick, onTodoRemove}) => {
     return (
         <ul>
-        {props.todos.forEach(todo => {
-            <li onClick={onTodoClick(todo.id)}>{todo.title}</li>
+        {todos.map((todo, index) => {
+            return (
+                <li key={index} onClick={onTodoClick(todo.id)}>
+                    {todo.title}
+                    <a href="" onClick={onTodoRemove(todo.id)}></a>
+                </li>
+            )
         })}
         </ul>
     )
