@@ -30,11 +30,13 @@ const mapDispatchToProps = (dispatch) => {
 const TodoList = ({todos, onTodoClick, onTodoRemove}) => {
     return (
         <ul>
-        {todos.map((todo, index) => {
+        {todos.map(({title, id, finished}, index) => {
             return (
-                <li key={index} onClick={onTodoClick(todo.id)}>
-                    {todo.title}
-                    <a href="" onClick={onTodoRemove(todo.id)}></a>
+                <li style={ {
+                  textDecoration: finished ? 'line-through' : 'none'
+                } } key={index} onClick={onTodoClick(id)}>
+                    {title}
+                    <a href="" onClick={onTodoRemove(id)}></a>
                 </li>
             )
         })}

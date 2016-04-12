@@ -45,16 +45,22 @@ const todoApp = (state = initialState, action) => {
             break;
 
         case 'TOGGLE_DONE':
-            itemIndex = newCutHistory.findIndex(item => (item.id === action.payload.id));
+            const newHistoryStep = newCutHistory[newCutHistory.length - 1]
+            itemIndex = newHistoryStep.findIndex(item => (item.id === action.payload.id));
 
             history = [
-                ...newCutHistory.slice(0, itemIndex),
-                {
-                    finished: !newCutHistory[itemIndex].finished,
-                    id: newCutHistory[itemIndex].id,
-                    title: newCutHistory[itemIndex].title
-                },
-                ...newCutHistory.slice(itemIndex + 1)
+                // copy all history steps
+                ...newCutHistory,
+                // and create a new step
+                [
+                    ...newHistoryStep.slice(0, itemIndex),
+                    {
+                        finished: !newHistoryStep[itemIndex].finished,
+                        id: newHistoryStep[itemIndex].id,
+                        title: newHistoryStep[itemIndex].title
+                    },
+                    ...newHistoryStep.slice(itemIndex + 1)
+                ]
             ];
 
             return {
