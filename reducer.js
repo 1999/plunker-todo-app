@@ -17,6 +17,7 @@ const todoApp = (state = initialState, action) => {
     // this is useful for practically all tasks
     const newCutHistory = cutHistory(state);
     let history;
+    let itemIndex;
 
     switch (action.type) {
         case 'ADD':
@@ -37,7 +38,7 @@ const todoApp = (state = initialState, action) => {
             break;
 
         case 'MARK_AS_DONE':
-            const itemIndex = newCutHistory.findIndex(item => (item.id === action.payload.id));
+            itemIndex = newCutHistory.findIndex(item => (item.id === action.payload.id));
 
             history = [
                 ...newCutHistory.slice(0, itemIndex),
@@ -57,7 +58,7 @@ const todoApp = (state = initialState, action) => {
             break;
 
         case 'MARK_AS_UNDONE':
-            const itemIndex = newCutHistory.findIndex(item => (item.id === action.payload.id));
+            itemIndex = newCutHistory.findIndex(item => (item.id === action.payload.id));
 
             history = [
                 ...newCutHistory.slice(0, itemIndex),
